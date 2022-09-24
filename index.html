@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Document</title>
+    <style>
+        video {
+            border: 1px red dotted;
+            display: inline-block;
+            margin: 8px;
+        }
+
+        * {
+            font-family: monospace;
+        }
+
+        h1 {
+            font-size: medium;
+        }
+
+        h2 {
+            font-size: small;
+        }
+
+        #state {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <video id="video">
+        <source src="./loop-8pm.mp4" type="video/mp4">
+        <source src="./loop-8px.webm" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
+    <span id="state">...</span>
+    <h1>Prevent my computer from sleeping</h1>
+    <p>
+
+        <b>Click</b> once on the dotted area above to activate (it's a tiny video).<br />
+        Keep this page open to prevent your desktop from sleeping.<br />
+        Safari is recommended on Mac for lower power consumption.<br />
+        Let this tab open by itself, not background, no need to be visible.<br />
+    </p>
+    <h2>When should I use this page?</h2>
+    <p>
+        In cases your system has a sleep policy you can't control and you need to get around that.<br />
+        It consumes about ~150Mb on Safari.<br />
+    </p>
+    <script>
+        isplaying = false
+        vid = window.video
+        state = window.state
+        state.innerHTML = 'OFF'
+        state.style.color = 'red'
+        vid.addEventListener('play', () => {
+            isplaying = true
+            state.innerHTML = 'ON'
+            state.style.color = 'green'
+        })
+        vid.addEventListener('pause', () => {
+            isplaying = false
+            state.innerHTML = 'OFF'
+            state.style.color = 'red'
+        })
+        vid.addEventListener('ended', () => {
+            vid.play()
+        })
+        vid.addEventListener('click', () => {
+            if (isplaying) {
+                vid.pause()
+            } else {
+                vid.play()
+            }
+        })
+    </script>
+</body>
+
+</html>
